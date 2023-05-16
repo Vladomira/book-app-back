@@ -5,7 +5,7 @@
       "database": "book_store",
       "host": "localhost",
       "dialect": "postgres",
-      "operatorsAliases": false
+      "operatorsAliases": 0
    },
 
    "production": {
