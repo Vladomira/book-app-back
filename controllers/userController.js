@@ -65,7 +65,7 @@ class UserController {
                id: user.id,
                email: user.email,
                name: user.name,
-               token: token,
+               token,
             },
          });
       } catch (error) {
@@ -91,7 +91,7 @@ class UserController {
    async getUser(req, res, next) {
       try {
          if (!req.user) {
-            throw new Unauthorized("Not authorized");
+            return next(ApiError.badRequest("Not authorized"));
          }
          const { email, name } = req.user;
          res.json({
@@ -101,10 +101,7 @@ class UserController {
             },
          });
       } catch (error) {
-         if (error) {
-            error.status = 401;
-         }
-         next();
+         return next(ApiError.badRequest(error.message));
       }
    }
    async deleteUser(req, res, next) {
