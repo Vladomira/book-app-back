@@ -12,9 +12,10 @@ module.exports = (sequelize, DataTypes) => {
    UserBooks.init(
       {
          bookId: DataTypes.STRING,
-         userEmail: DataTypes.STRING,
+         userId: DataTypes.STRING,
          author: DataTypes.STRING,
          title: DataTypes.STRING,
+         image: DataTypes.STRING,
          favorite: DataTypes.BOOLEAN,
          finished: DataTypes.BOOLEAN,
          inProgress: DataTypes.BOOLEAN,

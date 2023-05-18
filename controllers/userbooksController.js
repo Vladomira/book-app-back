@@ -3,38 +3,32 @@ const db = require("../models/index");
 
 //bookId -id book from google, id -id from postgresql
 class UserBooksController {
-   async createBook(req, res, next) {
+   async addUserBook(req, res, next) {
       try {
          if (!req.user) {
             return next(ApiError.badRequest("Please authorize"));
          }
          const { bookId } = req.params;
-         console.log(bookId);
-         const book = await db.UserBooks.findOne({ where: { bookId } });
+         const book = await db.UserBooks.findOne({
+            where: { bookId, userId: req.user.id },
+         });
          if (book) {
-            return next(ApiError.badRequest("Book already exists"));
+            return next(ApiError.conflict("Book already exists"));
          }
-         // add img etc
-         const { favorite, finished, inProgress, author, title } = req.body;
+
+         const { favorite, finished, inProgress, author, title, image } =
+            req.body.book;
          const newUserBook = await db.UserBooks.create({
             bookId,
             favorite,
             finished,
             inProgress,
-            userEmail: req.user.email,
+            userId: req.user.id,
+            image,
             author,
             title,
          });
-         return res.json({
-            id: newUserBook.id,
-            bookId,
-            favorite,
-            finished,
-            inProgress,
-            userEmail: req.user.email,
-            author,
-            title,
-         });
+         return res.json(newUserBook);
       } catch (error) {
          return next(ApiError.badRequest(error.message));
       }
@@ -47,9 +41,9 @@ class UserBooksController {
          if (!req.user) {
             return next(ApiError.badRequest("Not authorized"));
          }
-         const { email } = req.user;
+         const { id } = req.user;
          const books = await db.UserBooks.findAll({
-            where: { userEmail: email },
+            where: { userId: id },
          });
          // const contacts = await db.UserBooks.findByPk(
          //    { owner: email }, //?? where
@@ -59,10 +53,9 @@ class UserBooksController {
          //       limit: +limit,
          //    }
          // );
-
          res.json(books);
       } catch (error) {
-         next(error);
+         return next(ApiError.badRequest(error.message));
       }
    }
 
@@ -71,22 +64,18 @@ class UserBooksController {
          return next(ApiError.badRequest("Not authorized"));
       }
       const { id } = req.params;
-      const { favorite } = req.body;
+      const { favorite, finished, inProgress } = req.body;
       try {
-         if (!favorite) {
-            throw new BadRequest("missing field favorite");
-         }
-
          const updateBook = await db.UserBooks.update(
-            { favorite: favorite },
+            { favorite, finished, inProgress },
             { where: { id } }
          );
          if (!updateBook) {
-            throw new NotFound();
+            return next(ApiError.badRequest("Book doesn't exist"));
          }
-         return res.status(200).json(updateBook);
+         return res.status(200).json({ message: "Book was updated" });
       } catch (error) {
-         next(error);
+         return next(ApiError.badRequest(error.message));
       }
    }
    async deleteBookById(req, res, next) {
@@ -94,15 +83,16 @@ class UserBooksController {
          if (!req.user) {
             return next(ApiError.badRequest("Not authorized"));
          }
-         const { id } = req.params; //!!!!databse ID
+         const { id, userId } = req.params; //!!!!databse ID
          const deleteContact = await db.UserBooks.findByPk(id);
+
          if (!deleteContact) {
-            throw new NotFound();
+            return next(ApiError.badRequest("Book doesn't exist"));
          }
          await deleteContact.destroy();
-         res.json({ message: "book was deleted" });
+         res.json(deleteContact.id);
       } catch (error) {
-         next(error);
+         return next(ApiError.badRequest(error.message));
       }
    }
 }

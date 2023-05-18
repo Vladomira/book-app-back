@@ -22,11 +22,11 @@ class UserController {
          }
          const salt = await bcrypt.genSalt(10);
          const hashPassword = await bcrypt.hash(password, salt);
-         const token = jwt.sign({ name, email }, process.env.SECRET_KEY, {
-            expiresIn: "24h",
-         });
 
+         const id = Date.now().toString();
+         const token = generateJwt(id, name, email);
          const newUser = await db.User.create({
+            id,
             name,
             email,
             password: hashPassword,
@@ -58,6 +58,7 @@ class UserController {
          if (!comparePassword) {
             return next(ApiError.internal(`Wrong password`));
          }
+
          const token = generateJwt(user.id, user.name, user.email);
          await db.User.update({ token }, { where: { email } });
          return res.status(201).json({
@@ -93,11 +94,12 @@ class UserController {
          if (!req.user) {
             return next(ApiError.badRequest("Not authorized"));
          }
-         const { email, name } = req.user;
+         const { email, name, id } = req.user;
          res.json({
             user: {
                email,
                name,
+               id,
             },
          });
       } catch (error) {

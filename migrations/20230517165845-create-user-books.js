@@ -12,13 +12,16 @@ module.exports = {
          bookId: {
             type: Sequelize.STRING,
          },
-         userEmail: {
+         userId: {
             type: Sequelize.STRING,
          },
          author: {
             type: Sequelize.STRING,
          },
          title: {
+            type: Sequelize.STRING,
+         },
+         image: {
             type: Sequelize.STRING,
          },
          favorite: {
