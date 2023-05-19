@@ -64,20 +64,21 @@ class UserBooksController {
          return next(ApiError.badRequest("Not authorized"));
       }
       const { id } = req.params;
-      const { favorite, finished, inProgress } = req.body;
+      const data = req.body;
       try {
-         const updateBook = await db.UserBooks.update(
-            { favorite, finished, inProgress },
-            { where: { id } }
-         );
-         if (!updateBook) {
+         const book = await db.UserBooks.update(data, {
+            where: { id },
+         });
+         if (!book) {
             return next(ApiError.badRequest("Book doesn't exist"));
          }
-         return res.status(200).json({ message: "Book was updated" });
+         const updatedBook = await db.UserBooks.findByPk(id);
+         return res.status(200).json(updatedBook);
       } catch (error) {
          return next(ApiError.badRequest(error.message));
       }
    }
+
    async deleteBookById(req, res, next) {
       try {
          if (!req.user) {
