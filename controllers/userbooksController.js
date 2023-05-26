@@ -36,8 +36,6 @@ class UserBooksController {
 
    async getUserBooks(req, res, next) {
       try {
-         // const { page = 1, limit = 10, id } = req.query;
-         // const skip = (page - 1) * limit;
          if (!req.user) {
             return next(ApiError.badRequest("Not authorized"));
          }
@@ -45,14 +43,7 @@ class UserBooksController {
          const books = await db.UserBooks.findAll({
             where: { userId: id },
          });
-         // const contacts = await db.UserBooks.findByPk(
-         //    { owner: email }, //?? where
-         //    "-createdAt -updatedAt",
-         //    {
-         //       skip: skip,
-         //       limit: +limit,
-         //    }
-         // );
+
          res.json(books);
       } catch (error) {
          return next(ApiError.badRequest(error.message));
@@ -84,14 +75,14 @@ class UserBooksController {
          if (!req.user) {
             return next(ApiError.badRequest("Not authorized"));
          }
-         const { id, userId } = req.params; //!!!!databse ID
-         const deleteContact = await db.UserBooks.findByPk(id);
+         const { id } = req.params; //!!!!databse ID
+         const deletedContact = await db.UserBooks.findByPk(id);
 
-         if (!deleteContact) {
+         if (!deletedContact) {
             return next(ApiError.badRequest("Book doesn't exist"));
          }
-         await deleteContact.destroy();
-         res.json(deleteContact.id);
+         await deletedContact.destroy();
+         res.json(deletedContact.id);
       } catch (error) {
          return next(ApiError.badRequest(error.message));
       }

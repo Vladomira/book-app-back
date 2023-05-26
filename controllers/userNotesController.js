@@ -25,17 +25,72 @@ class userNotes {
       }
    }
 
+   async updateNoteById(req, res, next) {
+      if (!req.user) {
+         return next(ApiError.badRequest("Not authorized"));
+      }
+      const { noteId } = req.params;
+      const data = req.body;
+      console.log("noteId", noteId);
+      console.log("data", data);
+      try {
+         const updatedNote = await db.UserNotes.update(data, {
+            where: { id: noteId },
+         });
+         if (!updatedNote) {
+            return next(ApiError.badRequest("Book doesn't exist"));
+         }
+         const updatedBook = await db.UserNotes.findByPk(noteId);
+         return res.status(200).json(updatedBook);
+      } catch (error) {
+         return next(ApiError.badRequest(error.message));
+      }
+   }
+
    async getNotes(req, res, next) {
       try {
          if (!req.user) {
             return next(ApiError.badRequest("Not authorized"));
          }
          const { id } = req.user;
-         const books = await db.UserNotes.findAll({
+         const notes = await db.UserNotes.findAll({
             where: { userId: id },
          });
 
-         res.json(books);
+         res.status(201).json(notes);
+      } catch (error) {
+         return next(ApiError.badRequest(error.message));
+      }
+   }
+
+   async getNotesByBookId(req, res, next) {
+      try {
+         if (!req.user) {
+            return next(ApiError.badRequest("Not authorized"));
+         }
+         const { bookId } = req.params;
+         const bookNotes = await db.UserNotes.findAll({
+            where: { bookId },
+         });
+         if (!bookNotes) {
+            return res.status(201).json({ message: "Not found" });
+         }
+
+         res.status(201).json(bookNotes);
+      } catch (error) {
+         return next(ApiError.badRequest(error.message));
+      }
+   }
+   async deleteNote(req, res, next) {
+      try {
+         if (!req.user) {
+            return next(ApiError.badRequest("Not authorized"));
+         }
+         const { noteId } = req.params;
+         const deletedNote = await db.UserNotes.findByPk(noteId);
+
+         await deletedNote.destroy();
+         res.status(201).json(deletedNote.id);
       } catch (error) {
          return next(ApiError.badRequest(error.message));
       }

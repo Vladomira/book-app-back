@@ -6,7 +6,8 @@ const authMidlware = require("../midlware/AuthMidlware");
 
 router.post("/:bookId", authMidlware, userNotes.createNote);
 router.get("/:userId", authMidlware, userNotes.getNotes);
-// patch
-// delete
+router.get("/book-notes/:bookId", authMidlware, userNotes.getNotesByBookId);
+router.patch("/:noteId", authMidlware, userNotes.updateNoteById);
+router.delete("/:noteId", authMidlware, userNotes.deleteNote);
 
 module.exports = router;
