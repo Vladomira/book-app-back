@@ -18,6 +18,7 @@ app.use("/api", router);
 
 const start = async () => {
    try {
+      await sequelize.sync();
       app.listen(`${PORT}`, () =>
          console.log(`Hello, I'm a shop on port ${PORT}`)
       );

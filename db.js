@@ -1,8 +1,12 @@
 const { Sequelize } = require("sequelize");
-const { DB_HOST } = process.env;
 
-module.exports = new Sequelize({
-   host: DB_HOST,
+module.exports = new Sequelize(process.env.DATABASE_URL, {
    dialect: "postgres",
    logging: false,
+   dialectOptions: {
+      ssl: {
+         require: true,
+         rejectUnauthorized: false,
+      },
+   },
 });
