@@ -1,5 +1,5 @@
 const ApiError = require("../error/ApiError");
-const db = require("../models/index");
+const db = require("../../database/models/index");
 
 class userNotes {
    async createNote(req, res, next) {

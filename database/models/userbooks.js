@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
          userId: DataTypes.STRING,
          author: DataTypes.STRING,
          title: DataTypes.STRING,
-         image: DataTypes.STRING,
+         image: DataTypes.TEXT,
          favorite: DataTypes.BOOLEAN,
          finished: DataTypes.BOOLEAN,
          inProgress: DataTypes.BOOLEAN,

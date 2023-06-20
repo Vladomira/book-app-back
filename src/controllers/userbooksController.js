@@ -1,5 +1,5 @@
 const ApiError = require("../error/ApiError");
-const db = require("../models/index");
+const db = require("../../database/models/index");
 
 //bookId -id book from google, id -id from postgresql
 class UserBooksController {
@@ -15,7 +15,6 @@ class UserBooksController {
          if (book) {
             return next(ApiError.conflict("Book already exists"));
          }
-
          const { favorite, finished, inProgress, author, title, image } =
             req.body.book;
          const newUserBook = await db.UserBooks.create({
@@ -30,6 +29,7 @@ class UserBooksController {
          });
          return res.json(newUserBook);
       } catch (error) {
+         console.log("123321", error);
          return next(ApiError.badRequest(error.message));
       }
    }

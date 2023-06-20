@@ -19,7 +19,10 @@ module.exports = {
          password: {
             type: Sequelize.STRING,
          },
-         token: {
+         accessToken: {
+            type: Sequelize.STRING,
+         },
+         refreshToken: {
             type: Sequelize.STRING,
          },
          createdAt: {
