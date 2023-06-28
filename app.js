@@ -8,7 +8,7 @@ const cors = require("cors");
 const app = express();
 const ErrorMidlware = require("./src/midlware/ErrorMidlware");
 const cookieParser = require("cookie-parser");
-const PORT = process.env.PORT || "8080";
+const PORT = process.env.PORT || "0.0.0.0";
 
 const bodyParser = require("body-parser");
 router.use(bodyParser.json());
