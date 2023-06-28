@@ -4,7 +4,7 @@ const db = require("../../database/models/index");
 class TokenServise {
    generateToken(payload) {
       const accessToken = jwt.sign(payload, process.env.ACCESS_SECRET_KEY, {
-         expiresIn: "1d",
+         expiresIn: "3h",
       });
       const refreshToken = jwt.sign(payload, process.env.REFRESH_SECRET_KEY, {
          expiresIn: "10d",

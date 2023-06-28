@@ -8,13 +8,20 @@ const app = express();
 // const path = require("path");
 const ErrorMidlware = require("./src/midlware/ErrorMidlware");
 const cookieParser = require("cookie-parser");
-const PORT = process.env.PORT || "8081";
+const PORT = process.env.PORT || "8080";
 
 const bodyParser = require("body-parser");
 router.use(bodyParser.json());
 app.use(cookieParser());
 
-app.use(cors());
+app.use(
+   cors({
+      origin: process.env.CLIENT_URL,
+      credentials: true,
+      optionSuccessStatus: 200,
+   })
+);
+
 app.use(express.json());
 app.use("/api", router);
 app.use(ErrorMidlware);

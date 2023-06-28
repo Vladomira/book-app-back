@@ -10,8 +10,9 @@ module.exports = {
             type: Sequelize.INTEGER,
          },
          bookId: {
-            type: Sequelize.INTEGER,
+            type: Sequelize.STRING,
          },
+
          userId: {
             type: Sequelize.STRING,
          },

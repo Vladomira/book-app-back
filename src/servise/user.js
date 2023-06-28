@@ -24,11 +24,6 @@ class UserService {
       });
 
       return { ...userPayload, ...tokens };
-      //    res.status(201).json({ user: userPayload, ...tokens });
-      //   } catch (error) {
-      //      // status 500 |401
-      //      return next(ApiError.badRequest(error.message));
-      //   }
    }
 
    async login(email, password) {
@@ -67,7 +62,7 @@ class UserService {
       if (!refreshToken) {
          throw ApiError.Unauthorized();
       }
-
+      console.log("555555", refreshToken);
       const userData = tokenServise.validateRefreshToken(refreshToken);
       const tokenFromDb = await tokenServise.findToken(refreshToken);
       if (!userData || !tokenFromDb) {
@@ -83,6 +78,7 @@ class UserService {
    }
 
    async getUser(req, res) {
+      console.log("!req.user", req.user);
       try {
          if (!req.user) {
             throw ApiError.Unauthorized();
