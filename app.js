@@ -8,7 +8,7 @@ const cors = require("cors");
 const app = express();
 const ErrorMidlware = require("./src/midlware/ErrorMidlware");
 const cookieParser = require("cookie-parser");
-const PORT = process.env.PORT || "0.0.0.0";
+const PORT = process.env.PORT || 8080;
 
 const bodyParser = require("body-parser");
 router.use(bodyParser.json());
@@ -34,9 +34,7 @@ const start = async () => {
    try {
       await sequelize.sync();
       // await client.connect();
-      app.listen(`${PORT}`, () =>
-         console.log(`Hello, I'm a shop on port ${PORT}`)
-      );
+      app.listen(PORT, () => console.log(`Hello, I'm a shop on port ${PORT}`));
    } catch (error) {
       console.log("my error:", error);
    }
