@@ -5,10 +5,11 @@ const sequelize = require("./db-settings");
 const models = require("./database/models/index.js");
 const router = require("./src/routes/index");
 const cors = require("cors");
-const app = express();
 const ErrorMidlware = require("./src/midlware/ErrorMidlware");
 const cookieParser = require("cookie-parser");
-const PORT = process.env.PORT || 8080;
+
+const PORT = process.env.PORT || 3000;
+const app = express();
 
 const bodyParser = require("body-parser");
 router.use(bodyParser.json());
