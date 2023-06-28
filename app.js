@@ -8,7 +8,7 @@ const cors = require("cors");
 const ErrorMidlware = require("./src/midlware/ErrorMidlware");
 const cookieParser = require("cookie-parser");
 
-const PORT = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 const app = express();
 
 const bodyParser = require("body-parser");
@@ -27,15 +27,15 @@ app.use(express.json());
 app.use("/api", router);
 app.use(ErrorMidlware);
 
-// const client = redis.createClient({
-//    url: process.env.DATABASE_URL,
-// });
+const client = redis.createClient({
+   url: process.env.DATABASE_URL,
+});
 
 const start = async () => {
    try {
       await sequelize.sync();
-      // await client.connect();
-      app.listen(PORT, () => console.log(`Hello, I'm a shop on port ${PORT}`));
+      await client.connect();
+      app.listen(port, () => console.log(`Hello, I'm an app on port ${port}`));
    } catch (error) {
       console.log("my error:", error);
    }
