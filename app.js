@@ -26,7 +26,10 @@ app.use(
 app.use(express.json());
 app.use("/api", router);
 app.get("/", (req, res) => {
-   res.send("Welcome");
+   res.send("Hello");
+});
+app.get("/favicon.ico", (req, res) => {
+   res.status(204);
 });
 
 app.use(ErrorMidlware);
