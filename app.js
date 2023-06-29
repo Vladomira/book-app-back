@@ -8,7 +8,7 @@ const cors = require("cors");
 const ErrorMidlware = require("./src/midlware/ErrorMidlware");
 const cookieParser = require("cookie-parser");
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8080;
 const app = express();
 
 const bodyParser = require("body-parser");
