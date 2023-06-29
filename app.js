@@ -25,6 +25,10 @@ app.use(
 
 app.use(express.json());
 app.use("/api", router);
+app.get("/", (req, res) => {
+   res.send("Welcome");
+});
+
 app.use(ErrorMidlware);
 
 const start = async () => {
