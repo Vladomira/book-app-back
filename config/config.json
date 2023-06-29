@@ -9,11 +9,12 @@
    },
 
    "production": {
-      "username": "DB_USER_DVPLMNT",
-      "password": "DB_PASSWORD_DVPLMNT",
-      "database": "DB_NAME_DVPLMNT",
-      "host": "DB_HOST_DVPLMNTD",
-      "port": "DB_PORT_DVPLMNT",
+      "username": "DB_USRNAME",
+      "password": "DB_PASSWORD",
+      "database": "DB_NAME",
+      "host": "DB_HOST",
+      "port": "DB_PORT",
+      "use_env_variable": "DATABASE_URL",
       "dialect": "postgres",
       "dialectOptions": {
          "ssl": {

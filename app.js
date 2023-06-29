@@ -27,14 +27,14 @@ app.use(express.json());
 app.use("/api", router);
 app.use(ErrorMidlware);
 
-const client = redis.createClient({
-   url: process.env.DATABASE_URL,
-});
+// const client = redis.createClient({
+//    url: process.env.DATABASE_URL,
+// });
 
 const start = async () => {
    try {
       await sequelize.sync();
-      await client.connect();
+      // await client.connect();
       app.listen(port, () => console.log(`Hello, I'm an app on port ${port}`));
    } catch (error) {
       console.log("my error:", error);
