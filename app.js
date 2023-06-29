@@ -1,5 +1,4 @@
 require("dotenv").config();
-const redis = require("redis");
 const express = require("express");
 const sequelize = require("./db-settings");
 const models = require("./database/models/index.js");
@@ -27,15 +26,12 @@ app.use(express.json());
 app.use("/api", router);
 app.use(ErrorMidlware);
 
-// const client = redis.createClient({
-//    url: process.env.DATABASE_URL,
-// });
-
 const start = async () => {
    try {
       await sequelize.sync();
-      // await client.connect();
-      app.listen(port, () => console.log(`Hello, I'm an app on port ${port}`));
+      app.listen(port, "0.0.0.0", () =>
+         console.log(`Hello, I'm an app on port ${port}`)
+      );
    } catch (error) {
       console.log("my error:", error);
    }
