@@ -1,10 +1,9 @@
 {
    "development": {
-      "username": "PGUSER",
-      "password": "PGPASSWORD",
-      "database": "PGDATABASE",
-      "host": "PGHOST",
-      "port": "PGPORT",
+      "username": "postgres",
+      "password": "science",
+      "database": "book_store",
+      "host": "localhost",
       "dialect": "postgres",
       "operatorsAliases": 0
    },

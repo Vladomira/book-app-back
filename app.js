@@ -1,4 +1,5 @@
 require("dotenv").config();
+
 const express = require("express");
 const sequelize = require("./db-settings");
 const models = require("./database/models/index.js");
@@ -7,7 +8,7 @@ const cors = require("cors");
 const ErrorMidlware = require("./src/midlware/ErrorMidlware");
 const cookieParser = require("cookie-parser");
 
-const port = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8080;
 const app = express();
 
 const bodyParser = require("body-parser");
@@ -29,9 +30,8 @@ app.use(ErrorMidlware);
 const start = async () => {
    try {
       await sequelize.sync();
-      app.listen(port, "0.0.0.0", () =>
-         console.log(`Hello, I'm an app on port ${port}`)
-      );
+
+      app.listen(PORT, () => console.log(`Hello, I'm an app on port ${PORT}`));
    } catch (error) {
       console.log("my error:", error);
    }
