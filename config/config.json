@@ -1,19 +1,20 @@
 {
    "development": {
-      "username": "postgres",
-      "password": "science",
-      "database": "book_store",
-      "host": "localhost",
+      "username": "books-app-main-db-05859efe333cc4959",
+      "password": "UrSX25bTr9HV31srhGh2ThKhjprWTa",
+      "database": "books-app-main-db-05859efe333cc4959",
+      "host": "user-prod-us-east-2-1.cluster-cfi5vnucvv3w.us-east-2.rds.amazonaws.com",
+      "port": "5432",
       "dialect": "postgres",
       "operatorsAliases": 0
    },
 
    "production": {
-      "username": "DB_USRNAME",
-      "password": "DB_PASSWORD",
-      "database": "DB_NAME",
-      "host": "DB_HOST",
-      "port": "DB_PORT",
+      "username": "books-app-main-db-05859efe333cc4959",
+      "password": "UrSX25bTr9HV31srhGh2ThKhjprWTa",
+      "database": "books-app-main-db-05859efe333cc4959",
+      "host": "user-prod-us-east-2-1.cluster-cfi5vnucvv3w.us-east-2.rds.amazonaws.com",
+      "port": "5432",
       "use_env_variable": "DATABASE_URL",
       "dialect": "postgres",
       "dialectOptions": {
