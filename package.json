@@ -2,6 +2,7 @@
    "name": "book-app-back",
    "version": "1.0.0",
    "description": "",
+   "lockfile": "package-lock.json",
    "main": "index.js",
    "scripts": {
       "test": "echo \"Error: no test specified\" && exit 1",
