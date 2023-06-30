@@ -26,7 +26,7 @@ app.use(
 app.use(express.json());
 app.use("/api", router);
 app.get("/", (req, res) => {
-   res.send("Hello");
+   res.send("Welcome on the books backend");
 });
 app.get("/favicon.ico", (req, res) => {
    res.status(204);

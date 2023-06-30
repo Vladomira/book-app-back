@@ -14,7 +14,13 @@
       "password": "UrSX25bTr9HV31srhGh2ThKhjprWTa",
       "database": "books-app-main-db-05859efe333cc4959",
       "host": "user-prod-us-east-2-1.cluster-cfi5vnucvv3w.us-east-2.rds.amazonaws.com",
-      "port": "5432",
-      "dialect": "postgres"
+      "port": 5432,
+      "dialect": "postgres",
+      "dialectOptions": {
+         "ssl": {
+            "require": true,
+            "rejectUnauthorized": false
+         }
+      }
    }
 }
